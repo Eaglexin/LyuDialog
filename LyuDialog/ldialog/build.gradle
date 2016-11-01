@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.3"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    testCompile 'junit:junit:4.12'
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        // 修改为自己刚才创建的仓库地址
+        repository(url: "https://github.com/Eaglexin/LyuDialog.git") {
+            authentication(userName: "wingup@yeah.net", password: "Aptx4869")
+        }
+        snapshotRepository(url: "https://github.com/Eaglexin/LyuDialog.git") {
+            authentication(userName: "wingup@yeah.net", password: "Aptx4869")
+        }
+        pom.version = "1.0.0"
+        pom.artifactId = "AlertDialog"
+        pom.groupId = "com.polly.ldialog"
+        pom.name = "AlertDialog"
+        pom.packaging = 'aar'
+    }
+}
